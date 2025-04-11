@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Vibes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-900 text-white text-center">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-700 to-green-500 text-white py-5 text-6xl font-bold shadow-md">
+        Music Vibes
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-black py-3 flex justify-center space-x-5 md:flex-row md:justify-center px-5">
+        <div class="hidden md:flex space-x-4">
+            <a href="home.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-blue-500 px-2 py-2 rounded-md transition-all">Home</a>
+            <a href="music-player.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-blue-500 px-2 py-2 rounded-md transition-all">Music Player</a>
+            <a href="albums.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-blue-500 px-2 py-2 rounded-md transition-all">Albums</a>
+            <a href="about.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-blue-500 px-2 py-2 rounded-md transition-all">About</a>
+            <a href="contact.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-blue-500 px-2 py-2 rounded-md transition-all">Contact</a>
+        </div>
+        <!-- Responsive Navbar for Mobile -->
+        <div class="md:hidden flex justify-end">
+            <span class="text-white text-2xl cursor-pointer">&#9776;</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-10 p-5 bg-gray-800 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-3">Welcome to Music Vibes</h2>
+        <p class="text-lg text-gray-300">Discover the latest hits and timeless classics.</p>
+
+        <!-- Song Table -->
+        <table class="w-3/4 mx-auto bg-gray-700 text-white mt-5 border border-gray-600 rounded-lg overflow-hidden">
+            <thead>
+                <tr class="bg-blue-500 text-white">
+                    <th class="p-3">#</th>
+                    <th class="p-3">Song Title</th>
+                    <th class="p-3">Artist</th>
+                    <th class="p-3">Play</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="hover:bg-gray-600">
+                    <td class="p-3">1</td>
+                    <td class="p-3">Alone</td>
+                    <td class="p-3">Edward</td>
+                    <td class="p-3"><a href="music-player.html" class="text-blue-400 hover:text-blue-600">Play Now</a></td>
+                </tr>
+                <tr class="hover:bg-gray-600">
+                    <td class="p-3">2</td>
+                    <td class="p-3">Color_Hot</td>
+                    <td class="p-3">Robert Mark</td>
+                    <td class="p-3"><a href="music-player.html" class="text-blue-400 hover:text-blue-600">Play Now</a></td>
+                </tr>
+                <tr class="hover:bg-gray-600">
+                    <td class="p-3">3</td>
+                    <td class="p-3">Host</td>
+                    <td class="p-3">Adele</td>
+                    <td class="p-3"><a href="music-player.html" class="text-blue-400 hover:text-blue-600">Play Now</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Coming Soon -->
+        <div class="mt-5 text-gray-400 italic">
+            <h2>More Songs Coming Soon</h2>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-3 mt-10 shadow-inner">
+        &copy; 2025 Music Vibes. All Rights Reserved.
+    </footer>
+
+</body>
+</html>

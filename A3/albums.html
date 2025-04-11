@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Albums</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#1e1e1e] text-white font-[Poppins] text-center">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[#4001ec] to-[#04f324] py-6 text-3xl font-bold shadow-[0_4px_10px_rgba(0,0,0,0.3)]">
+    Albums
+  </header>
+
+  <!-- Mobile Nav Toggle -->
+  <div class="md:hidden flex justify-end p-4">
+    <input type="checkbox" id="menu-toggle" class="peer hidden" />
+    <label for="menu-toggle" class="cursor-pointer">
+      <svg class="w-8 h-8 fill-white" viewBox="0 0 100 80">
+        <rect width="100" height="10"></rect>
+        <rect y="30" width="100" height="10"></rect>
+        <rect y="60" width="100" height="10"></rect>
+      </svg>
+    </label>
+  </div>
+
+  <!-- Nav Links -->
+  <nav class="bg-[#1e1e1e] md:flex md:justify-center md:gap-6 text-base font-medium hidden peer-checked:flex flex-col md:flex-row">
+    <a href="home.html" class="py-2 px-4 rounded transition duration-300 hover:bg-gradient-to-r from-[#fa02d9] to-[#0ea9d8] hover:shadow-[0_4px_8px_rgba(255,75,75,0.3)]">Home</a>
+    <a href="music-player.html" class="py-2 px-4 rounded transition duration-300 hover:bg-gradient-to-r from-[#fa02d9] to-[#0ea9d8] hover:shadow-[0_4px_8px_rgba(255,75,75,0.3)]">Music Player</a>
+    <a href="albums.html" class="py-2 px-4 rounded transition duration-300 hover:bg-gradient-to-r from-[#fa02d9] to-[#0ea9d8] hover:shadow-[0_4px_8px_rgba(255,75,75,0.3)]">Albums</a>
+    <a href="about.html" class="py-2 px-4 rounded transition duration-300 hover:bg-gradient-to-r from-[#fa02d9] to-[#0ea9d8] hover:shadow-[0_4px_8px_rgba(255,75,75,0.3)]">About</a>
+    <a href="contact.html" class="py-2 px-4 rounded transition duration-300 hover:bg-gradient-to-r from-[#fa02d9] to-[#0ea9d8] hover:shadow-[0_4px_8px_rgba(255,75,75,0.3)]">Contact</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-2xl mx-auto bg-[#292929] mt-8 p-6 rounded-xl shadow-[0_5px_15px_rgba(255,75,75,0.3)]">
+    <h2 class="text-2xl font-semibold mb-3">Explore Albums</h2>
+    <p class="italic text-gray-300">Album Available Soon.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#2d2d2d] text-gray-400 py-4 mt-10 text-sm shadow-[0_-4px_10px_rgba(255,75,75,0.3)]">
+    &copy; 2025 Music Vibes. All Rights Reserved.
+  </footer>
+
+</body>
+</html>

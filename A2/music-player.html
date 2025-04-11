@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Player</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#1e1e1e] text-white font-[Poppins] text-center">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[#4001ec] to-[#04f324] text-white py-6 text-3xl font-bold shadow-md">
+    Music Player
+  </header>
+
+  <!-- Navigation -->
+  <nav class="bg-[#1e1e1e] flex flex-wrap justify-center items-center gap-4 py-4 text-lg">
+    <a href="home.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all shadow-md">Home</a>
+    <a href="music-player.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all shadow-md">Music Player</a>
+    <a href="albums.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all shadow-md">Albums</a>
+    <a href="about.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all shadow-md">About</a>
+    <a href="contact.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all shadow-md">Contact</a>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="w-[90%] lg:w-[80%] mx-auto mt-8 p-6 bg-[#292929] rounded-xl shadow-xl">
+    <h2 class="text-2xl md:text-3xl font-semibold mb-4">Play Your Favorite Songs</h2>
+    <p class="text-lg text-gray-300 mb-6">Select a song to play.</p>
+
+    <!-- Music Controls -->
+    <div class="music-controls flex flex-col sm:flex-row justify-center items-center gap-6 py-6">
+      <button class="bg-gradient-to-r from-black to-red-700 hover:from-yellow-600 hover:to-cyan-400 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-lg transition-transform hover:scale-105">
+        ⏮ Previous
+      </button>
+
+      <audio id="audio-player" controls class="w-full max-w-md">
+        <source id="audio-source" src="songs/Alone.mp3" type="audio/mpeg" />
+        Your browser does not support the audio tag.
+      </audio>
+
+      <button class="bg-gradient-to-r from-black to-red-700 hover:from-yellow-600 hover:to-cyan-400 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-lg transition-transform hover:scale-105">
+        ⏭ Next
+      </button>
+    </div>
+
+    <!-- Note -->
+    <p class="text-red-600 bg-[#fff5e0] italic text-base md:text-lg px-6 py-4 rounded mb-6">
+      Note: Next & Previous Button currently not working.
+    </p>
+
+    <!-- Song List -->
+    <section>
+      <h3 class="text-xl md:text-2xl font-bold mb-4">Song List</h3>
+      <ul class="song-list space-y-4">
+        <li>
+          <a href="songs/Alone.mp3" class="block bg-[#222] hover:bg-gradient-to-r from-green-400 to-blue-500 px-4 py-3 rounded-lg text-white text-lg transition-all">
+            Alone - Edward
+          </a>
+        </li>
+        <li>
+          <a href="songs/Color_Hot.mp3" class="block bg-[#222] hover:bg-gradient-to-r from-green-400 to-blue-500 px-4 py-3 rounded-lg text-white text-lg transition-all">
+            Color_Hot - Robert Mark
+          </a>
+        </li>
+        <li>
+          <a href="songs/Host.mp3" class="block bg-[#222] hover:bg-gradient-to-r from-green-400 to-blue-500 px-4 py-3 rounded-lg text-white text-lg transition-all">
+            Host - Adele
+          </a>
+        </li>
+        <li>
+          <a href="songs/On The Rocks.mp3" class="block bg-[#222] hover:bg-gradient-to-r from-green-400 to-blue-500 px-4 py-3 rounded-lg text-white text-lg transition-all">
+            On The Rocks - Hellwen
+          </a>
+        </li>
+        <li>
+          <a href="songs/Sake_Bomb.mp3" class="block bg-[#222] hover:bg-gradient-to-r from-green-400 to-blue-500 px-4 py-3 rounded-lg text-white text-lg transition-all">
+            Sake Bomb - Ed Sheeran
+          </a>
+        </li>
+        <li class="italic text-gray-400 text-xl">:More Songs Coming Soon:</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#2d2d2d] text-white text-sm py-6 mt-10 shadow-inner">
+    &copy; 2025 Music Vibes. All Rights Reserved.
+  </footer>
+
+</body>
+</html>
