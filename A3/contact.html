@@ -13,14 +13,31 @@
     <h1 class="text-4xl font-bold drop-shadow-md">Music Vibes</h1>
   </header>
 
-  <!-- Navigation -->
-  <nav class="bg-[#1e1e1e] flex flex-wrap justify-center items-center gap-4 py-4 text-lg shadow-md md:gap-6">
-    <a href="home.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">Home</a>
-    <a href="music-player.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">Music Player</a>
-    <a href="albums.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">Albums</a>
-    <a href="about.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">About</a>
-    <a href="contact.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">Contact</a>
-  </nav>
+
+ 
+  <!-- Navbar -->
+  <!-- Responsive Navbar -->
+<nav class="bg-transparent px-6 py-4 fixed top-0 left-0 w-full z-50 shadow-xl backdrop-blur-lg">
+  <div class="flex items-center justify-between">
+    <a href="home.html" class="text-3xl font-bold text-white">Music Vibes</a>
+
+    <!-- Hamburger Icon (Visible on Mobile) -->
+    <button id="menu-toggle" class="text-white text-3xl md:hidden focus:outline-none">
+      ☰
+    </button>
+
+    <!-- Nav Links -->
+    <div id="menu" class="hidden md:flex md:items-center md:space-x-6 flex-col md:flex-row absolute md:static bg-[#1e3a8a] md:bg-transparent w-full md:w-auto top-16 left-0 px-6 py-4 md:p-0 rounded-lg shadow-lg md:shadow-none">
+      <a href="home.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Home</a>
+      <a href="music-player.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Music Player</a>
+      <a href="albums.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Albums</a>
+      <a href="about.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">About</a>
+      <a href="contact.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Contact</a>
+    </div>
+  </div>
+</nav>
+
+
 
   <!-- Contact Section -->
   <section class="max-w-3xl mx-auto mt-10 px-6 py-10 bg-[#292929] rounded-xl shadow-xl">
@@ -77,6 +94,6 @@
   <footer class="bg-[#2d2d2d] text-white text-center py-4 mt-10 shadow-inner text-sm">
     &copy; 2025 Music Vibes. All Rights Reserved.
   </footer>
-
+<script src="script.js"></script>
 </body>
 </html>

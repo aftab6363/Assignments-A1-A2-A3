@@ -1,71 +1,521 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | Music Vibes</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #04f324;
+      --secondary: #4001ec;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .animate-fade {
+      animation: fadeIn 1s ease-out forwards;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .parallax-bg {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .glow-effect {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .glow-effect::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+      filter: blur(10px);
+    }
+    
+    .glow-effect:hover::before {
+      opacity: 0.6;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #2d2d2d;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(var(--primary), var(--secondary));
+      border-radius: 10px;
+    }
+    
+    /* Particle effect container */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
 </head>
-<body class="bg-[#1e1e1e] text-white font-[Poppins]">
+<body class="bg-[#1e1e1e] text-white font-[Poppins] min-h-screen flex flex-col">
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+  <div class="content-wrapper flex-grow flex flex-col">
+    
+    <!-- Animated Header -->
+    <header class="bg-gradient-to-r from-[#4001ec] to-[#04f324] text-white py-8 text-center shadow-lg relative overflow-hidden">
+      <div class="absolute inset-0 bg-black opacity-20"></div>
+      <div class="relative z-10">
+        <h1 class="text-5xl font-bold drop-shadow-md mb-2 animate-fade">Music Vibes</h1>
+        <p class="text-xl opacity-90 animate-fade" style="animation-delay: 0.2s">Where Music Comes Alive</p>
+      </div>
+    </header>
 
-  <!-- Header -->
-  <header class="bg-gradient-to-r from-[#4001ec] to-[#04f324] text-white py-6 text-center shadow-lg">
-    <h1 class="text-4xl font-bold drop-shadow-md">Music Vibes</h1>
-  </header>
+    <!-- Enhanced Navbar -->
+    <nav class="bg-black/80 px-6 py-4 fixed top-0 left-0 w-full z-50 shadow-xl backdrop-blur-lg border-b border-white/10">
+      <div class="container mx-auto flex items-center justify-between">
+        <a href="home.html" class="text-3xl font-bold gradient-text flex items-center">
+          <i class="fas fa-music mr-2"></i> Music Vibes
+        </a>
 
-  <!-- Navbar -->
-  <nav class="bg-[#1e1e1e] flex flex-wrap justify-center items-center gap-4 py-4 text-lg shadow-md md:gap-6">
-    <a href="home.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">Home</a>
-    <a href="music-player.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">Music Player</a>
-    <a href="albums.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">Albums</a>
-    <a href="about.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">About</a>
-    <a href="contact.html" class="text-white px-4 py-2 rounded hover:bg-gradient-to-r from-pink-500 to-cyan-400 shadow transition-all">Contact</a>
-  </nav>
+        <!-- Hamburger Menu -->
+        <button id="menu-toggle" class="text-white text-3xl md:hidden focus:outline-none transition-transform hover:scale-110">
+          <i class="fas fa-bars"></i>
+        </button>
 
-  <!-- About Section -->
-  <section class="max-w-3xl mx-auto mt-10 px-6 py-10 bg-[#292929] rounded-xl shadow-xl text-center">
-    <h2 class="text-3xl font-bold text-green-400 mb-6">🎵 About Music Vibes</h2>
-    <p class="text-gray-200 text-lg leading-relaxed mb-6">
-      Welcome to <strong>Music Vibes</strong> – your ultimate destination for discovering <span class="text-white font-semibold">new independent artists, timeless classics, and royalty-free music</span>!
-      Whether you are a <span class="text-white font-semibold">music enthusiast, content creator, or just someone who loves good tunes</span>, we have something special for you.
-    </p>
+        <!-- Nav Links -->
+        <div id="menu" class="hidden md:flex md:items-center md:space-x-6 flex-col md:flex-row absolute md:static bg-black/90 md:bg-transparent w-full md:w-auto top-20 left-0 px-6 py-4 md:p-0 rounded-lg shadow-lg md:shadow-none border border-white/10 md:border-none">
+          <a href="home.html" class="text-white hover:text-[#04f324] px-4 py-2 rounded-md transition-all flex items-center">
+            <i class="fas fa-home mr-2"></i> Home
+          </a>
+          <a href="music-player.html" class="text-white hover:text-[#04f324] px-4 py-2 rounded-md transition-all flex items-center">
+            <i class="fas fa-play mr-2"></i> Player
+          </a>
+          <a href="albums.html" class="text-white hover:text-[#04f324] px-4 py-2 rounded-md transition-all flex items-center">
+            <i class="fas fa-compact-disc mr-2"></i> Albums
+          </a>
+          <a href="about.html" class="text-[#04f324] font-semibold px-4 py-2 rounded-md transition-all flex items-center">
+            <i class="fas fa-info-circle mr-2"></i> About
+          </a>
+          <a href="contact.html" class="text-white hover:text-[#04f324] px-4 py-2 rounded-md transition-all flex items-center">
+            <i class="fas fa-envelope mr-2"></i> Contact
+          </a>
+        </div>
+      </div>
+    </nav>
 
-    <h3 class="text-2xl text-green-400 font-semibold mb-2">🌟 Our Mission</h3>
-    <p class="text-gray-200 text-lg mb-6">
-      We believe that <span class="font-semibold text-white">music has the power to inspire, connect, and transform lives</span>. Our goal is to provide a <span class="text-white font-semibold">seamless music streaming experience</span> where you can <span class="text-white font-semibold">explore, listen, and download</span> your favorite tracks effortlessly.
-    </p>
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-20">
+      <!-- About Section with 3D Card Effect -->
+      <section class="max-w-4xl mx-auto bg-gradient-to-br from-[#292929] to-[#1a1a1a] rounded-2xl shadow-2xl overflow-hidden border border-white/10 transform transition-all duration-500 hover:shadow-[0_0_30px_rgba(4,243,36,0.3)]">
+        <div class="p-8 md:p-12">
+          <div class="text-center mb-10">
+            <div class="inline-block bg-gradient-to-r from-[#4001ec] to-[#04f324] p-1 rounded-full mb-6 animate-fade">
+              <div class="bg-[#292929] rounded-full p-4">
+                <i class="fas fa-music text-4xl gradient-text"></i>
+              </div>
+            </div>
+            <h2 class="text-4xl font-bold gradient-text mb-4 animate-fade">About Music Vibes</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-[#4001ec] to-[#04f324] mx-auto mb-6"></div>
+            <p class="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto animate-fade" style="animation-delay: 0.2s">
+              Welcome to <span class="font-bold text-white">Music Vibes</span> – your ultimate destination for discovering new independent artists, timeless classics, and royalty-free music!
+            </p>
+          </div>
 
-    <h3 class="text-2xl text-green-400 font-semibold mb-2">🎼 What We Offer</h3>
-    <ul class="text-left text-gray-200 list-none space-y-3 mb-6 max-w-lg mx-auto">
-      <li>🎧 <span class="font-semibold text-white">Unlimited Free Streaming</span> – Listen to music without any restrictions.</li>
-      <li>📥 <span class="font-semibold text-white">Free Downloads</span> – Get access to royalty-free tracks for personal and commercial use.</li>
-      <li>🔍 <span class="font-semibold text-white">Discover New Artists</span> – Explore a wide range of independent musicians and bands.</li>
-      <li>📻 <span class="font-semibold text-white">Curated Playlists</span> – Handpicked collections for every mood and occasion.</li>
-    </ul>
+          <!-- Mission Section -->
+          <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-[#333333] p-6 rounded-xl border border-white/10 card-hover animate-fade" style="animation-delay: 0.3s">
+              <div class="text-[#04f324] text-3xl mb-4">
+                <i class="fas fa-bullseye"></i>
+              </div>
+              <h3 class="text-2xl font-semibold mb-3">Our Mission</h3>
+              <p class="text-gray-300">
+                We believe music has the power to inspire, connect, and transform lives. Our goal is to provide a seamless music experience where you can explore, listen, and download your favorite tracks effortlessly.
+              </p>
+            </div>
+            
+            <div class="bg-[#333333] p-6 rounded-xl border border-white/10 card-hover animate-fade" style="animation-delay: 0.4s">
+              <div class="text-[#04f324] text-3xl mb-4">
+                <i class="fas fa-eye"></i>
+              </div>
+              <h3 class="text-2xl font-semibold mb-3">Our Vision</h3>
+              <p class="text-gray-300">
+                To become the leading platform for independent artists while providing music lovers with the most diverse and high-quality listening experience available anywhere.
+              </p>
+            </div>
+          </div>
 
-    <h3 class="text-2xl text-green-400 font-semibold mb-2">💡 Why Choose Us?</h3>
-    <p class="text-gray-200 text-lg mb-6">
-      Unlike mainstream platforms, we focus on <span class="font-semibold text-white">supporting upcoming artists and providing ad-free experiences</span>.
-      <strong>Music Vibes</strong> is designed with <span class="text-white font-semibold">simplicity, quality, and user experience in mind</span>.
-    </p>
+          <!-- Features Section -->
+          <div class="mb-12 animate-fade" style="animation-delay: 0.5s">
+            <h3 class="text-3xl font-bold text-center gradient-text mb-8">What We Offer</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div class="bg-[#333333] p-5 rounded-xl border border-white/10 text-center card-hover">
+                <div class="text-[#04f324] text-4xl mb-4">
+                  <i class="fas fa-headphones"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2">Unlimited Streaming</h4>
+                <p class="text-gray-300 text-sm">Listen to music without any restrictions</p>
+              </div>
+              
+              <div class="bg-[#333333] p-5 rounded-xl border border-white/10 text-center card-hover">
+                <div class="text-[#04f324] text-4xl mb-4">
+                  <i class="fas fa-download"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2">Free Downloads</h4>
+                <p class="text-gray-300 text-sm">Royalty-free tracks for personal and commercial use</p>
+              </div>
+              
+              <div class="bg-[#333333] p-5 rounded-xl border border-white/10 text-center card-hover">
+                <div class="text-[#04f324] text-4xl mb-4">
+                  <i class="fas fa-user-astronaut"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2">New Artists</h4>
+                <p class="text-gray-300 text-sm">Discover emerging talent from around the world</p>
+              </div>
+              
+              <div class="bg-[#333333] p-5 rounded-xl border border-white/10 text-center card-hover">
+                <div class="text-[#04f324] text-4xl mb-4">
+                  <i class="fas fa-list-music"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2">Curated Playlists</h4>
+                <p class="text-gray-300 text-sm">Handpicked collections for every mood</p>
+              </div>
+            </div>
+          </div>
 
-    <h3 class="text-2xl text-green-400 font-semibold mb-2">🚀 Join the Vibe</h3>
-    <p class="text-gray-200 text-lg mb-6">
-      Ready to <span class="text-white font-semibold">experience music like never before</span>? Explore our collection, create your playlists, and share the love of music with the world!
-    </p>
+          <!-- Why Choose Us -->
+          <div class="bg-[#333333] p-8 rounded-xl border border-white/10 mb-10 animate-fade" style="animation-delay: 0.6s">
+            <h3 class="text-3xl font-bold gradient-text text-center mb-6">Why Choose Music Vibes?</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="flex items-start">
+                <div class="text-[#04f324] text-2xl mr-4 mt-1">
+                  <i class="fas fa-ad"></i>
+                </div>
+                <div>
+                  <h4 class="text-xl font-semibold mb-2">Ad-Free Experience</h4>
+                  <p class="text-gray-300 text-sm">Enjoy uninterrupted music without annoying ads</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="text-[#04f324] text-2xl mr-4 mt-1">
+                  <i class="fas fa-artstation"></i>
+                </div>
+                <div>
+                  <h4 class="text-xl font-semibold mb-2">Artist Support</h4>
+                  <p class="text-gray-300 text-sm">We give 85% of revenue directly to artists</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="text-[#04f324] text-2xl mr-4 mt-1">
+                  <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div>
+                  <h4 class="text-xl font-semibold mb-2">Cross-Platform</h4>
+                  <p class="text-gray-300 text-sm">Seamless experience across all devices</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <!-- Call to Action -->
-    <div class="mt-6">
-      <a href="music-player.html" class="inline-block bg-pink-600 hover:bg-orange-500 text-white font-semibold px-6 py-3 rounded-lg text-lg shadow transition-all">
-        🎶 Start Listening
-      </a>
-    </div>
-  </section>
+          <!-- Stats Section -->
+          <div class="grid md:grid-cols-4 gap-6 text-center mb-12 animate-fade" style="animation-delay: 0.7s">
+            <div class="bg-[#333333] p-6 rounded-xl border border-white/10 card-hover">
+              <div class="text-4xl font-bold gradient-text mb-2">10M+</div>
+              <div class="text-gray-300">Monthly Listeners</div>
+            </div>
+            <div class="bg-[#333333] p-6 rounded-xl border border-white/10 card-hover">
+              <div class="text-4xl font-bold gradient-text mb-2">500K+</div>
+              <div class="text-gray-300">Songs Available</div>
+            </div>
+            <div class="bg-[#333333] p-6 rounded-xl border border-white/10 card-hover">
+              <div class="text-4xl font-bold gradient-text mb-2">50K+</div>
+              <div class="text-gray-300">Independent Artists</div>
+            </div>
+            <div class="bg-[#333333] p-6 rounded-xl border border-white/10 card-hover">
+              <div class="text-4xl font-bold gradient-text mb-2">24/7</div>
+              <div class="text-gray-300">Music Streaming</div>
+            </div>
+          </div>
 
-  <!-- Footer -->
-  <footer class="bg-[#2d2d2d] text-white text-center py-4 mt-10 shadow-inner text-sm">
-    &copy; 2025 Music Vibes. All Rights Reserved.
-  </footer>
+          <!-- CTA Section -->
+          <div class="text-center animate-fade" style="animation-delay: 0.8s">
+            <h3 class="text-3xl font-bold gradient-text mb-6">Ready to Experience Music Vibes?</h3>
+            <p class="text-gray-300 max-w-2xl mx-auto mb-8">
+              Join millions of music lovers today and discover a world of incredible music at your fingertips.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+              <a href="music-player.html" class="glow-effect bg-gradient-to-r from-[#4001ec] to-[#04f324] text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg transition-all hover:scale-105">
+                <i class="fas fa-play mr-2"></i> Start Listening
+              </a>
+              <a href="contact.html" class="glow-effect bg-transparent border-2 border-[#04f324] text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg transition-all hover:scale-105 hover:bg-[#04f324]/10">
+                <i class="fas fa-envelope mr-2"></i> Contact Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
+    <!-- Enhanced Footer -->
+    <footer class="bg-black/90 text-white py-8 border-t border-white/10">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <h4 class="text-xl font-bold gradient-text mb-4 flex items-center">
+              <i class="fas fa-music mr-2"></i> Music Vibes
+            </h4>
+            <p class="text-gray-400 text-sm">
+              The ultimate destination for music lovers and independent artists.
+            </p>
+            <div class="flex space-x-4 mt-4">
+              <a href="#" class="text-gray-400 hover:text-[#04f324] transition-colors">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-[#04f324] transition-colors">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-[#04f324] transition-colors">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="text-gray-400 hover:text-[#04f324] transition-colors">
+                <i class="fab fa-spotify"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+              <li><a href="home.html" class="text-gray-400 hover:text-[#04f324] transition-colors">Home</a></li>
+              <li><a href="music-player.html" class="text-gray-400 hover:text-[#04f324] transition-colors">Music Player</a></li>
+              <li><a href="albums.html" class="text-gray-400 hover:text-[#04f324] transition-colors">Albums</a></li>
+              <li><a href="about.html" class="text-gray-400 hover:text-[#04f324] transition-colors">About Us</a></li>
+              <li><a href="contact.html" class="text-gray-400 hover:text-[#04f324] transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Legal</h4>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-gray-400 hover:text-[#04f324] transition-colors">Terms of Service</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-[#04f324] transition-colors">Privacy Policy</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-[#04f324] transition-colors">Cookie Policy</a></li>
+              <li><a href="#" class="text-gray-400 hover:text-[#04f324] transition-colors">Copyright Info</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+            <p class="text-gray-400 text-sm mb-4">
+              Subscribe to get updates on new releases and features.
+            </p>
+            <form class="flex">
+              <input type="email" placeholder="Your email" class="bg-[#333333] text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#04f324] w-full">
+              <button type="submit" class="bg-[#04f324] text-white px-4 py-2 rounded-r-lg hover:bg-[#03d11f] transition-colors">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="border-t border-white/10 pt-6 text-center text-gray-500 text-sm">
+          <p>&copy; 2025 Music Vibes. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-gradient-to-r from-[#4001ec] to-[#04f324] text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 z-50 hover:scale-110">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Mobile menu toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('hidden');
+      this.innerHTML = menu.classList.contains('hidden') ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
+    });
+    
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.remove('opacity-0', 'invisible');
+        backToTopButton.classList.add('opacity-100', 'visible');
+      } else {
+        backToTopButton.classList.remove('opacity-100', 'visible');
+        backToTopButton.classList.add('opacity-0', 'invisible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Initialize particles.js
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.getElementById('particles-js')) {
+        particlesJS('particles-js', {
+          "particles": {
+            "number": {
+              "value": 80,
+              "density": {
+                "enable": true,
+                "value_area": 800
+              }
+            },
+            "color": {
+              "value": ["#04f324", "#4001ec"]
+            },
+            "shape": {
+              "type": "circle",
+              "stroke": {
+                "width": 0,
+                "color": "#000000"
+              }
+            },
+            "opacity": {
+              "value": 0.5,
+              "random": true,
+              "anim": {
+                "enable": true,
+                "speed": 1,
+                "opacity_min": 0.1,
+                "sync": false
+              }
+            },
+            "size": {
+              "value": 3,
+              "random": true,
+              "anim": {
+                "enable": true,
+                "speed": 2,
+                "size_min": 0.1,
+                "sync": false
+              }
+            },
+            "line_linked": {
+              "enable": true,
+              "distance": 150,
+              "color": "#04f324",
+              "opacity": 0.2,
+              "width": 1
+            },
+            "move": {
+              "enable": true,
+              "speed": 1,
+              "direction": "none",
+              "random": true,
+              "straight": false,
+              "out_mode": "out",
+              "bounce": false,
+              "attract": {
+                "enable": true,
+                "rotateX": 600,
+                "rotateY": 1200
+              }
+            }
+          },
+          "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "grab"
+              },
+              "onclick": {
+                "enable": true,
+                "mode": "push"
+              },
+              "resize": true
+            },
+            "modes": {
+              "grab": {
+                "distance": 140,
+                "line_linked": {
+                  "opacity": 0.5
+                }
+              },
+              "push": {
+                "particles_nb": 4
+              }
+            }
+          },
+          "retina_detect": true
+        });
+      }
+      
+      // Animate elements on scroll
+      const animateElements = document.querySelectorAll('.animate-fade');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      animateElements.forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(20px)';
+        observer.observe(el);
+      });
+    });
+  </script>
 </body>
 </html>
