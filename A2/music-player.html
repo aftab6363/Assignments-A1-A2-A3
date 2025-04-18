@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,18 +14,13 @@
   </style>
 </head>
 <body class="bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white font-[Poppins] min-h-screen">
-<!-- Responsive Navbar -->
+<!-- Navbar -->
 <nav class="bg-transparent px-6 py-4 fixed top-0 left-0 w-full z-50 shadow-xl backdrop-blur-lg">
   <div class="flex items-center justify-between">
     <a href="home.html" class="text-3xl font-bold text-white">Music Vibes</a>
 
-    <!-- Hamburger Icon (Visible on Mobile) -->
-    <button id="menu-toggle" class="text-white text-3xl md:hidden focus:outline-none">
-      ☰
-    </button>
-
-    <!-- Nav Links -->
-    <div id="menu" class="hidden md:flex md:items-center md:space-x-6 flex-col md:flex-row absolute md:static bg-[#1e3a8a] md:bg-transparent w-full md:w-auto top-16 left-0 px-6 py-4 md:p-0 rounded-lg shadow-lg md:shadow-none">
+    <!-- Nav Links - Always visible, collapses on small screens -->
+    <div class="flex flex-col md:flex-row md:items-center md:space-x-6 bg-[#1e3a8a] md:bg-transparent w-full md:w-auto absolute md:static left-0 top-16 md:top-0 px-6 py-4 md:p-0 rounded-lg shadow-lg md:shadow-none">
       <a href="home.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Home</a>
       <a href="music-player.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Music Player</a>
       <a href="albums.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Albums</a>
@@ -33,6 +29,7 @@
     </div>
   </div>
 </nav>
+
 
   <header class="text-center py-16">
     <h1 class="text-5xl font-extrabold bg-gradient-to-r from-[#00f5c9] to-[#5b5bff] bg-clip-text text-transparent drop-shadow-lg py-4">
@@ -58,13 +55,43 @@
     <ul id="songList" class="space-y-4">
       <!-- Songs will be added here via JavaScript -->
     </ul>
+    <div><ul class="space-y-2 mt-6 text-white">
+      <li>
+        <a href="songs/Alone.mp3" class="block px-4 py-2 rounded-md hover:bg-gradient-to-r from-pink-500 to-cyan-400 transition-all">
+          Alone - Edward
+        </a>
+      </li>
+      <li>
+        <a href="songs/Color_Hot.mp3" class="block px-4 py-2 rounded-md hover:bg-gradient-to-r from-pink-500 to-cyan-400 transition-all">
+          Color_Hot - Robert Mark
+        </a>
+      </li>
+      <li>
+        <a href="songs/Host.mp3" class="block px-4 py-2 rounded-md hover:bg-gradient-to-r from-pink-500 to-cyan-400 transition-all">
+          Host - Adele
+        </a>
+      </li>
+      <li>
+        <a href="songs/On The Rocks.mp3" class="block px-4 py-2 rounded-md hover:bg-gradient-to-r from-pink-500 to-cyan-400 transition-all">
+          On The Rocks - Hellwen
+        </a>
+      </li>
+      <li>
+        <a href="songs/Sake_Bomb.mp3" class="block px-4 py-2 rounded-md hover:bg-gradient-to-r from-pink-500 to-cyan-400 transition-all">
+          Sake Bomb - Ed Sheeran
+        </a>
+      </li>
+      <li class="text-[30px] italic text-gray-400">
+        :More Song Coming Soon:
+      </li>
+    </ul>
+    </div>
   </main>
 
   <footer class="bg-gradient-to-r from-[#00f5c9] to-[#5b5bff] text-white py-10 mt-20 text-center">
     <p class="text-lg">© 2025 Music Vibes. All Rights Reserved.</p>
   </footer>
 
-  <script src="music-player.js"></script>
-  <script src="script.js"></script>
+ 
 </body>
 </html>

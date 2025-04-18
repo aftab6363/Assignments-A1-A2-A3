@@ -3,304 +3,499 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home - Music Vibes</title>
+  <title>Music Vibes - Discover & Stream Music</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Custom animation keyframes */
-    @keyframes floatCard {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-5px); }
-      100% { transform: translateY(0px); }
+    :root {
+      --primary: #2563EB;
+      --secondary: #1E3A8A;
+      --accent: #3B82F6;
+      --text: #FFFFFF;
+      --text-secondary: #E5E7EB;
     }
-  
-    /* Smooth fade-in effect */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: var(--text);
+      min-height: 100vh;
     }
-  
-    .fadeIn {
-      animation: fadeIn 1s ease-in-out both;
-    }
-  
-    /* Modern card animation */
-    .slider-item {
-      min-width: 250px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-radius: 16px;
-      box-shadow: 0 25px 40px rgba(0, 0, 0, 0.3);
-      transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s;
-      animation: floatCard 6s ease-in-out infinite;
-      overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
-  
-    .slider-item:hover {
-      transform: scale(1.06) rotateX(1deg) rotateY(1deg);
-      box-shadow: 0 35px 60px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 255, 0.2);
+    
+    .music-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-  
-    /* Button with modern glow */
-    .btn, .slider-item button {
-      transition: all 0.3s ease-in-out;
-      position: relative;
-      z-index: 1;
+    
+    .music-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
-  
-    .btn::before,
-    .slider-item button::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #ff00cc, #00f5c9);
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-      border-radius: inherit;
-      filter: blur(10px);
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
-  
-    .btn:hover::before,
-    .slider-item button:hover::before {
-      opacity: 1;
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
     }
-  
-    .btn:hover,
-    .slider-item button:hover {
-      transform: scale(1.08);
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #FF00CC, #00F5C9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-  
-    /* Slider container */
-    .slider-container {
-      display: flex;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      gap: 1.5rem;
-      padding: 20px;
-      -webkit-overflow-scrolling: touch;
+    
+    #toast-notification {
+      z-index: 1000;
+      pointer-events: none;
     }
-  
-    /* Arrows */
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(30, 58, 138, 0.7);
-      padding: 10px;
-      border-radius: 50%;
-      z-index: 10;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
+    
+    .active-mood {
+      background: rgba(255, 255, 255, 0.2) !important;
+      border: 1px solid rgba(255, 255, 255, 0.3) !important;
     }
-  
-    .arrow:hover {
-      background-color: rgba(255, 255, 255, 0.2);
+    
+    .playing {
+      background: rgba(59, 130, 246, 0.5) !important;
     }
-  
-    .arrow-left {
-      left: 10px;
+    
+    #premium-modal {
+      z-index: 100;
     }
-  
-    .arrow-right {
-      right: 10px;
+    
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem !important;
+      }
+      .section-title {
+        font-size: 2rem !important;
+      }
     }
   </style>
-  
 </head>
-<body class="bg-gradient-to-br from-[#1E3A8A] via-[#2563EB] to-[#3B82F6] text-white font-[Poppins] min-h-screen">
+<body class="overflow-x-hidden">
 
-  <!-- Navbar -->
- <!-- Responsive Navbar -->
-<nav class="bg-transparent px-6 py-4 fixed top-0 left-0 w-full z-50 shadow-xl backdrop-blur-lg">
-  <div class="flex items-center justify-between">
-    <a href="home.html" class="text-3xl font-bold text-white">Music Vibes</a>
-
-    <!-- Hamburger Icon (Visible on Mobile) -->
-    <button id="menu-toggle" class="text-white text-3xl md:hidden focus:outline-none">
-      ☰
-    </button>
-
-    <!-- Nav Links -->
-    <div id="menu" class="hidden md:flex md:items-center md:space-x-6 flex-col md:flex-row absolute md:static bg-[#1e3a8a] md:bg-transparent w-full md:w-auto top-16 left-0 px-6 py-4 md:p-0 rounded-lg shadow-lg md:shadow-none">
-      <a href="home.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Home</a>
-      <a href="music-player.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Music Player</a>
-      <a href="albums.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Albums</a>
-      <a href="about.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">About</a>
-      <a href="contact.html" class="text-white hover:bg-gradient-to-r from-pink-500 to-cyan-400 px-4 py-2 rounded-md transition-all transform hover:scale-110 w-full md:w-auto text-center">Contact</a>
+  <!-- Navigation -->
+  <nav class="glass fixed top-0 left-0 right-0 z-50 px-6 py-4 shadow-lg">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="text-3xl font-bold gradient-text flex items-center">
+        <i class="fas fa-music mr-2"></i> Music Vibes
+      </a>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html" class="text-white hover:text-cyan-300 transition-colors font-medium">Home</a>
+        <a href="music-player.html" class="text-white hover:text-cyan-300 transition-colors font-medium">Player</a>
+        <a href="albums.html" class="text-white hover:text-cyan-300 transition-colors font-medium">Albums</a>
+        <a href="about.html" class="text-white hover:text-cyan-300 transition-colors font-medium">About</a>
+        <a href="contact.html" class="text-white hover:text-cyan-300 transition-colors font-medium">Contact</a>
+      </div>
+      
+      <div class="flex items-center space-x-4">
+        <button class="bg-gradient-to-r from-pink-500 to-cyan-400 px-6 py-2 rounded-full text-white font-medium hover:shadow-lg transition-all">
+          Sign In
+        </button>
+        <button id="mobile-menu-btn" class="md:hidden text-2xl text-white">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
     </div>
-  </div>
-</nav>
-
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-[#1E3A8A] py-4 px-6 shadow-xl">
+      <a href="index.html" class="block py-2 text-white hover:text-cyan-300 transition-colors">Home</a>
+      <a href="music-player.html" class="block py-2 text-white hover:text-cyan-300 transition-colors">Player</a>
+      <a href="albums.html" class="block py-2 text-white hover:text-cyan-300 transition-colors">Albums</a>
+      <a href="about.html" class="block py-2 text-white hover:text-cyan-300 transition-colors">About</a>
+      <a href="contact.html" class="block py-2 text-white hover:text-cyan-300 transition-colors">Contact</a>
+    </div>
+  </nav>
 
   <!-- Hero Section -->
-  <header class="text-center py-40 animate__animated animate__fadeIn animate__delay-1s fadeIn">
-    <h1 class="text-6xl font-extrabold bg-gradient-to-r from-[#ff00cc] to-[#00f5c9] bg-clip-text text-transparent drop-shadow-lg mb-6">
-      Discover New Music
-    </h1>
-    <p class="text-lg text-gray-300 mb-6">Explore the latest songs, albums, and enjoy your favorite tracks.</p>
-    <button id="startListeningBtn" class="btn px-8 py-3 bg-gradient-to-r from-pink-500 to-cyan-400 text-white rounded-full hover:scale-110 transform transition-all">
-      Start Listening
-    </button>
-  </header>
-
-  <!-- Featured Songs Section -->
-  <section id="songsSection" class="bg-[#1E3A8A] py-20 fadeIn relative">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <h2 class="text-4xl font-semibold text-white mb-12">Featured Songs</h2>
-
-      <!-- Slider container -->
-      <div class="slider-container" id="slider-container">
-        <!-- Song Card 1 -->
-        <div class="slider-item">
-          <img src="image/daniele-franchi-Ky0b_uuAkBo-unsplash.jpg" alt="Song 1" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Song 1 - Deniel</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-
-        <!-- Song Card 2 -->
-        <div class="slider-item">
-          <img src="image/oleg-sergeichik-Ebhh_t6tjo0-unsplash.jpg" alt="Song 2" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Song 2 - Artist Name</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-
-        <!-- Song Card 3 -->
-        <div class="slider-item">
-          <img src="image/images.jpeg" alt="Song 3" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Song 3 - Artist Name</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-
-        <!-- Song Card 4 -->
-        <div class="slider-item">
-          <img src="image/images.jpeg" alt="Song 4" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Song 4 - Artist Name</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-
-        <!-- Song Card 5 -->
-        <div class="slider-item">
-          <img src="image/brett-jordan-P_LEitbpCPg-unsplash.jpg" alt="Song 5" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Song 5 - Artist Name</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-
-        <!-- Song Card 6 -->
-        <div class="slider-item">
-          <img src="image/erik-mclean-QzpgqElvSiA-unsplash.jpg" alt="Song 6" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Song 6 - Artist Name</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
+  <section class="relative pt-32 pb-20 md:pt-40 md:pb-32 px-6 overflow-hidden">
+    <div class="max-w-7xl mx-auto text-center relative z-10">
+      <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 gradient-text">
+        Discover Your Soundtrack
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
+        Stream millions of songs, create playlists, and find music that matches your mood.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <button id="start-listening-btn" class="bg-gradient-to-r from-pink-500 to-cyan-400 px-8 py-4 rounded-full text-white font-bold hover:shadow-xl transition-all transform hover:scale-105">
+          Start Listening Free
+        </button>
+        <button id="explore-premium-btn" class="glass px-8 py-4 rounded-full text-white font-bold hover:shadow-xl transition-all transform hover:scale-105 border border-white/20">
+          Explore Premium
+        </button>
       </div>
+    </div>
+    
+    <!-- Floating Elements -->
+    <div class="absolute top-20 left-10 w-16 h-16 rounded-full bg-pink-500/20 blur-xl"></div>
+    <div class="absolute bottom-20 right-10 w-24 h-24 rounded-full bg-cyan-400/20 blur-xl"></div>
+  </section>
 
-      <!-- Slider Arrows -->
-      <div class="arrow arrow-left" id="prev-arrow">
-        <span class="text-white text-2xl">←</span>
+  <!-- Featured Section -->
+  <section id="featured-section" class="py-16 px-6 bg-gradient-to-b from-[#1E3A8A]/50 to-[#2563EB]/50">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center justify-between mb-12">
+        <h2 class="section-title text-3xl md:text-4xl font-bold text-white">
+          Featured Playlists
+        </h2>
+        <a href="#" class="text-cyan-300 hover:text-white transition-colors flex items-center" data-view-all="#featured-section">
+          View All <i class="fas fa-arrow-right ml-2"></i>
+        </a>
       </div>
-      <div class="arrow arrow-right" id="next-arrow">
-        <span class="text-white text-2xl">→</span>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Playlist 1 -->
+        <div class="music-card glass p-4 rounded-xl overflow-hidden">
+          <div class="relative overflow-hidden rounded-lg mb-4">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                 alt="Today's Top Hits" 
+                 class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+              <span class="text-xs font-semibold text-white bg-pink-500 px-2 py-1 rounded">New</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-1">Today's Top Hits</h3>
+          <p class="text-gray-400 text-sm mb-4">The most popular songs right now</p>
+          <button class="play-song-btn w-full bg-gradient-to-r from-pink-500 to-cyan-400 text-white py-2 rounded-full hover:opacity-90 transition-opacity"
+                  data-song-id="song1">
+            Play Now
+          </button>
+        </div>
+        
+        <!-- Playlist 2 -->
+        <div class="music-card glass p-4 rounded-xl overflow-hidden">
+          <div class="relative overflow-hidden rounded-lg mb-4">
+            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                 alt="Chill Vibes" 
+                 class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+              <span class="text-xs font-semibold text-white bg-cyan-400 px-2 py-1 rounded">Popular</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-1">Chill Vibes</h3>
+          <p class="text-gray-400 text-sm mb-4">Relaxing beats for your downtime</p>
+          <button class="play-song-btn w-full bg-gradient-to-r from-pink-500 to-cyan-400 text-white py-2 rounded-full hover:opacity-90 transition-opacity"
+                  data-song-id="song2">
+            Play Now
+          </button>
+        </div>
+        
+        <!-- Playlist 3 -->
+        <div class="music-card glass p-4 rounded-xl overflow-hidden">
+          <div class="relative overflow-hidden rounded-lg mb-4">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                 alt="Workout Energy" 
+                 class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+              <span class="text-xs font-semibold text-white bg-purple-500 px-2 py-1 rounded">Trending</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-1">Workout Energy</h3>
+          <p class="text-gray-400 text-sm mb-4">High-tempo tracks to fuel your workout</p>
+          <button class="play-song-btn w-full bg-gradient-to-r from-pink-500 to-cyan-400 text-white py-2 rounded-full hover:opacity-90 transition-opacity"
+                  data-song-id="song3">
+            Play Now
+          </button>
+        </div>
+        
+        <!-- Playlist 4 -->
+        <div class="music-card glass p-4 rounded-xl overflow-hidden">
+          <div class="relative overflow-hidden rounded-lg mb-4">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                 alt="Focus Flow" 
+                 class="w-full h-48 object-cover transition-transform duration-500 hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+              <span class="text-xs font-semibold text-white bg-yellow-400 px-2 py-1 rounded">Editor's Pick</span>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold mb-1">Focus Flow</h3>
+          <p class="text-gray-400 text-sm mb-4">Concentration-boosting instrumentals</p>
+          <button class="play-song-btn w-full bg-gradient-to-r from-pink-500 to-cyan-400 text-white py-2 rounded-full hover:opacity-90 transition-opacity"
+                  data-song-id="song4">
+            Play Now
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Trending Songs Section -->
-  <section class="bg-[#2563EB] py-20 fadeIn relative">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <h2 class="text-4xl font-semibold text-white mb-12">Trending Songs</h2>
-
-      <!-- Slider container -->
-      <div class="slider-container" id="trending-slider-container">
-        <!-- Trending Song 1 -->
-        <div class="slider-item">
-          <img src="image/felipepelaquim-bNW0HC_a3KE-unsplash.jpg" alt="Trending Song 1" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Trending Song 1</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
+  <!-- New Releases Section -->
+  <section class="py-16 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-white mb-12">
+        New Releases
+      </h2>
+      
+      <div class="relative">
+        <div class="flex overflow-x-auto pb-6 scroll-smooth" id="new-releases-slider">
+          <div class="flex space-x-6">
+            <!-- Album 1 -->
+            <div class="music-card glass p-4 rounded-xl w-64 flex-shrink-0">
+              <div class="relative mb-4 rounded-lg overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1619983081563-430f63602796?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+                     alt="Album Cover" 
+                     class="w-full h-48 object-cover">
+                <button class="new-release-play absolute bottom-4 right-4 w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                        data-song-id="song5">
+                  <i class="fas fa-play text-white"></i>
+                </button>
+              </div>
+              <h3 class="font-bold mb-1">Midnight Memories</h3>
+              <p class="text-gray-400 text-sm">The Weeknd</p>
+              <div class="flex items-center mt-2 text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="text-white text-xs ml-1">(128)</span>
+              </div>
+            </div>
+            
+            <!-- Album 2 -->
+            <div class="music-card glass p-4 rounded-xl w-64 flex-shrink-0">
+              <div class="relative mb-4 rounded-lg overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=681&q=80" 
+                     alt="Album Cover" 
+                     class="w-full h-48 object-cover">
+                <button class="new-release-play absolute bottom-4 right-4 w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                        data-song-id="song6">
+                  <i class="fas fa-play text-white"></i>
+                </button>
+              </div>
+              <h3 class="font-bold mb-1">Electric Dreams</h3>
+              <p class="text-gray-400 text-sm">Daft Punk</p>
+              <div class="flex items-center mt-2 text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span class="text-white text-xs ml-1">(95)</span>
+              </div>
+            </div>
+            
+            <!-- Album 3 -->
+            <div class="music-card glass p-4 rounded-xl w-64 flex-shrink-0">
+              <div class="relative mb-4 rounded-lg overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                     alt="Album Cover" 
+                     class="w-full h-48 object-cover">
+                <button class="new-release-play absolute bottom-4 right-4 w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                        data-song-id="song7">
+                  <i class="fas fa-play text-white"></i>
+                </button>
+              </div>
+              <h3 class="font-bold mb-1">Summer Vibes</h3>
+              <p class="text-gray-400 text-sm">Calvin Harris</p>
+              <div class="flex items-center mt-2 text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span class="text-white text-xs ml-1">(210)</span>
+              </div>
+            </div>
+            
+            <!-- Album 4 -->
+            <div class="music-card glass p-4 rounded-xl w-64 flex-shrink-0">
+              <div class="relative mb-4 rounded-lg overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                     alt="Album Cover" 
+                     class="w-full h-48 object-cover">
+                <button class="new-release-play absolute bottom-4 right-4 w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                        data-song-id="song8">
+                  <i class="fas fa-play text-white"></i>
+                </button>
+              </div>
+              <h3 class="font-bold mb-1">Dark Paradise</h3>
+              <p class="text-gray-400 text-sm">Lana Del Rey</p>
+              <div class="flex items-center mt-2 text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="text-white text-xs ml-1">(176)</span>
+              </div>
+            </div>
+            
+            <!-- Album 5 -->
+            <div class="music-card glass p-4 rounded-xl w-64 flex-shrink-0">
+              <div class="relative mb-4 rounded-lg overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                     alt="Album Cover" 
+                     class="w-full h-48 object-cover">
+                <button class="new-release-play absolute bottom-4 right-4 w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                        data-song-id="song9">
+                  <i class="fas fa-play text-white"></i>
+                </button>
+              </div>
+              <h3 class="font-bold mb-1">Neon Lights</h3>
+              <p class="text-gray-400 text-sm">The Chainsmokers</p>
+              <div class="flex items-center mt-2 text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span class="text-white text-xs ml-1">(88)</span>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- Trending Song 2 -->
-        <div class="slider-item">
-          <img src="image/lee-campbell-1w1OMV8CEeM-unsplash.jpg" alt="Trending Song 2" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Trending Song 2</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-
-        <!-- Trending Song 3 -->
-        <div class="slider-item">
-          <img src="image/mark-cruz-w3-zaydSNRY-unsplash.jpg" alt="Trending Song 3" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Trending Song 3</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-
-        <!-- Trending Song 4 -->
-        <div class="slider-item">
-          <img src="image/aliane-schwartzhaupt-QdmUva6qBTk-unsplash.jpg" alt="Trending Song 4" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Trending Song 4</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-
-        <!-- Trending Song 5 -->
-        <div class="slider-item">
-          <img src="image/gettyimages-1913673045-612x612.jpg" alt="Trending Song 5" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Trending Song 5</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-
-        <!-- Trending Song 6 -->
-        <div class="slider-item">
-          <img src="image/erik-mclean-QzpgqElvSiA-unsplash.jpg" alt="Trending Song 6" class="w-full h-48 object-cover rounded-t-lg">
-          <div class="text-white p-4">
-            <h3 class="text-2xl font-semibold">Trending Song 6</h3>
-            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all"> <a href="music-player.html">Play</a></button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slider Arrows -->
-      <div class="arrow arrow-left" id="prev-trending-arrow">
-        <span class="text-white text-2xl">←</span>
-      </div>
-      <div class="arrow arrow-right" id="next-trending-arrow">
-        <span class="text-white text-2xl">→</span>
       </div>
     </div>
   </section>
 
+  <!-- Mood Selector Section -->
+  <section class="py-16 px-6 bg-gradient-to-b from-[#2563EB]/50 to-[#1E3A8A]/50">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-white mb-4">
+        Music for Every Mood
+      </h2>
+      <p class="text-gray-300 mb-12 max-w-2xl mx-auto">
+        Tell us how you feel and we'll create the perfect playlist for you.
+      </p>
+      
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-12">
+        <button class="mood-btn glass p-4 rounded-xl hover:bg-white/10 transition-colors" data-mood="happy">
+          <div class="w-16 h-16 bg-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+            <i class="fas fa-smile-beam text-2xl text-pink-400"></i>
+          </div>
+          <span class="font-medium">Happy</span>
+        </button>
+        
+        <button class="mood-btn glass p-4 rounded-xl hover:bg-white/10 transition-colors" data-mood="sad">
+          <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+            <i class="fas fa-sad-tear text-2xl text-blue-400"></i>
+          </div>
+          <span class="font-medium">Sad</span>
+        </button>
+        
+        <button class="mood-btn glass p-4 rounded-xl hover:bg-white/10 transition-colors" data-mood="romantic">
+          <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+            <i class="fas fa-heart text-2xl text-purple-400"></i>
+          </div>
+          <span class="font-medium">Romantic</span>
+        </button>
+        
+        <button class="mood-btn glass p-4 rounded-xl hover:bg-white/10 transition-colors" data-mood="energetic">
+          <div class="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+            <i class="fas fa-fire text-2xl text-yellow-400"></i>
+          </div>
+          <span class="font-medium">Energetic</span>
+        </button>
+        
+        <button class="mood-btn glass p-4 rounded-xl hover:bg-white/10 transition-colors" data-mood="relaxed">
+          <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+            <i class="fas fa-spa text-2xl text-green-400"></i>
+          </div>
+          <span class="font-medium">Relaxed</span>
+        </button>
+      </div>
+      
+      <button id="get-mood-playlist-btn" class="bg-gradient-to-r from-pink-500 to-cyan-400 px-8 py-4 rounded-full text-white font-bold hover:shadow-xl transition-all transform hover:scale-105">
+        Get Your Mood Playlist
+      </button>
+    </div>
+  </section>
   <!-- Footer -->
-  <footer class="bg-gradient-to-r from-[#ff00cc] to-[#00f5c9] text-white py-10 mt-20 shadow-inner">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <p>© 2025 Music Vibes. All Rights Reserved.</p>
-      <div class="flex justify-center space-x-6">
-        <a href="#" class="text-white hover:text-[#ff00cc] transition-colors duration-300">Privacy Policy</a>
-        <a href="#" class="text-white hover:text-[#ff00cc] transition-colors duration-300">Terms of Service</a>
-        <a href="contact.html" class="text-white hover:text-[#ff00cc] transition-colors duration-300">Contact</a>
+  <footer class="bg-[#1E3A8A] py-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+        <div>
+          <h3 class="text-2xl font-bold gradient-text mb-4">
+            <i class="fas fa-music mr-2"></i> Music Vibes
+          </h3>
+          <p class="text-gray-400">
+            The best music streaming platform for discovering new artists and tracks.
+          </p>
+          <div class="flex space-x-4 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
+              <i class="fab fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4">Explore</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Genres</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Charts</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">New Releases</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Concerts</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4">Company</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Press</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-white font-bold mb-4">Legal</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Copyright</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">
+          © 2025 Music Vibes. All rights reserved.
+        </p>
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Privacy</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Terms</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">Sitemap</a>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-6 right-6 bg-gradient-to-r from-pink-500 to-cyan-400 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all opacity-0 invisible">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Audio Player (hidden) -->
+  <audio id="global-audio-player" style="display: none;"></audio>
+
+  <!-- Scripts -->
   <script src="home.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>
