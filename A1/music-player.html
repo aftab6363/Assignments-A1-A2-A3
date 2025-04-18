@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <title>Music Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Music Player</h1>
+    </header>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="music-player.html">Music Player</a>
+        <a href="albums.html">Albums</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    
+    <div class="container">
+        <h2>Play Your Favorite Songs</h2>
+        <p>Select a song to play.</p>
+
+        <div class="music-controls">
+            <button>⏮ Previous</button>
+            <audio id="audio-player" controls>
+                <source id="audio-source" src="songs/Alone.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
+            <button>⏭ Next</button>
+        </div>
+        <p style="color: red;background-color: antiquewhite;font-style: italic;font-size: 20px; padding: 15px;">Note: Next & Previous Botton currently not working. </p>
+            <h3>Song List</h3>
+        <ul class="song-list">
+            <li><a href="songs/Alone.mp3">Alone - Edward</a></li>
+            <li><a href="songs/Color_Hot.mp3">Color_Hot - Robert Mark</a></li>
+            <li><a href="songs/Host.mp3">Host - Adele</a></li>
+            <li><a href="songs/On The Rocks.mp3">On The Rocks - Hellwen</a></li>
+            <li><a href="songs/Sake_Bomb.mp3">Sake Bomb - Ed Sheeran</a></li>
+            <li style="font-size: 30x;font-style: italic;color: grey;">:More Song Coming Soon:</li>
+        </ul>
+    </div>
+
+    <footer>
+        &copy; 2025 Music Vibes. All Rights Reserved.
+    </footer>
+</body>
+</html>
